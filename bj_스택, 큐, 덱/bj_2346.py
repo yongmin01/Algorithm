@@ -5,17 +5,22 @@ from collections import deque
 N = int(sys.stdin.readline().strip())
 
 t = list(map(int, sys.stdin.readline().split()))
-d= deque()
+d = deque()
 for i in range(N) :
-    d.append({i: t[i]})
-print("here", d[0][0])
-temp = int(d[0][0])
+    d.append((i,t[i]))
 while len(d) != 1 :
-    if temp > 0 :
-        print(d.popleft())
-        d.rotate(-temp)
+    if d[0][1] > 0 :
+        temp = d[0][1]
+        print(d[0][0]+1, end=" ")
+        d.popleft()
+        for i in range(0, temp-1) : 
+            d.append(d[0])
+            d.popleft()
     else :
-        print(d.popleft())
-        d.rotate(temp)
-    print(d)
-print(d[0])
+        temp = d[0][1]
+        print(d[0][0]+1, end=" ")
+        d.popleft()
+        for i in range(0, -temp) : 
+            d.appendleft(d[-1])
+            d.pop()
+print(d[0][0]+1)
