@@ -19,7 +19,6 @@ for k in range(n) :
         for b in range(n) :
             graph[a][b] = min(graph[a][b], graph[a][k] + graph[k][b])
 
-
 answer = 0
 for a in range(n) :
     count = 0
