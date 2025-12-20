@@ -47,3 +47,45 @@ for candidate in candidates :
         if not v : break
     else : answer += 1
 print(answer)
+
+#######
+
+import sys
+input = sys.stdin.readline
+
+arr= []
+pos = []
+for r in range(5) :
+    row = list(input().strip())
+    for c in range(5) :
+        pos.append([r, c])
+    arr.append(row)
+
+pos_len = len(pos)
+
+combs = []
+def make_comb(s, li, count) :
+    global combs
+    if len(li) == 7 and count >= 4 :
+        combs.append(li)
+        return
+    for i in range(s, pos_len) :
+        r, c = pos[i]
+        if 7 - len(li) <= 4 - count :
+            if arr[r][c] == 'S' :
+                li.append([r, c])
+                make_comb(i+1, li, count+1)
+                count -= 1
+                li.pop()
+        else :
+            if arr[r][c] == 'S' :
+                li.append([r, c])
+                make_comb(i+1, li, count+1)
+                count -= 1
+                li.pop()
+            else : 
+                li.append([r, c])
+                make_comb(i+1, li, count)
+                li.pop()
+make_comb(0, [], 0)
+print(len(combs))
